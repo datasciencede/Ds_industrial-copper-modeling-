@@ -1,48 +1,119 @@
-# Ds_industrial-copper-modeling-
+# 🏭 Industrial Copper Modeling -- Price & Status Prediction App
 
-# Industrial-Copper-Modeling-Project
+## 📌 Project Overview
 
-## Introduction
-This project aims to develop two machine learning models for the copper industry to address the challenges of predicting selling price and lead classification. Manual predictions can be time-consuming and may not result in optimal pricing decisions or accurately capture leads. The models will utilize advanced techniques such as data normalization, outlier detection and handling, handling data in the wrong format, identifying the distribution of features, and leveraging tree-based models, specifically the decision tree algorithm, to predict the selling price and leads accurately.
+This project is a Streamlit-based application designed to **predict
+copper selling prices** and **predict deal status (Won/Lost)** using
+machine learning models trained on industrial copper transaction data.\
+The app performs preprocessing, encoding, scaling, and prediction using
+saved `.pkl` models.
 
-## Regression model details
-The copper industry deals with less complex data related to sales and pricing. However, this data may suffer from issues such as skewness and noisy data, which can affect the accuracy of manual predictions. Dealing with these challenges manually can be time-consuming and may not result in optimal pricing decisions. A machine learning regression model can address these issues by utilizing advanced techniques such as data normalization, outlier detection and handling, handling data in wrong format, identifying the distribution of features, and leveraging tree-based models, specifically the decision tree algorithm.
+------------------------------------------------------------------------
 
-## Classification model details
-Another area where the copper industry faces challenges is in capturing the leads. A lead classification model is a system for evaluating and classifying leads based on how likely they are to become a customer. You can use the STATUS variable with WON being considered as Success and LOST being considered as Failure and remove data points other than WON, LOST STATUS values.
+# 🔥 8 Key Points (With Explanation)
 
-## Solution
+### **1️⃣ Dual Prediction Modes**
 
-The solution includes the following steps:
+The application contains **two tabs**: - **Predict Selling Price** -- ML
+regression model predicts copper selling price.\
+- **Predict Status** -- Classification model predicts whether a deal is
+**Won** or **Lost**.\
+This allows users to estimate both business outcome and pricing.
 
-Exploring skewness and outliers in the dataset.
+------------------------------------------------------------------------
 
-Transforming the data into a suitable format and performing any necessary cleaning and pre-processing steps.
+### **2️⃣ Input Validation System**
 
-Developing a machine learning regression model which predicts the continuous variable 'Selling_Price' using the decision tree regressor.
+All numeric fields are validated using regex: - Prevents invalid
+characters\
+- Rejects empty or blank inputs\
+- Ensures only numeric or decimal values are allowed\
+This prevents incorrect or messy data from reaching the ML model.
 
-Developing a machine learning classification model which predicts the Status: WON or LOST using the decision tree classifier.
+------------------------------------------------------------------------
 
-Creating a Streamlit page where you can insert each column value and get the Selling_Price predicted value or Status (Won/Lost).
+### **3️⃣ Preprocessing With Scaling & Encoding**
 
-## Requirements
+The app loads several preprocessing components: - **StandardScaler** for
+numerical scaling\
+- **OneHotEncoder / Binarizer** for categorical encoding\
+- **Log transformations** for skewed numerical features\
+These ensure new inputs match the model training environment.
 
-This project requires the following libraries to be installed:
+------------------------------------------------------------------------
 
-NumPy
+### **4️⃣ Flexible Dropdown-Based Inputs**
 
-Pandas
+User-friendly dropdowns are provided for: - Status\
+- Item Type\
+- Country\
+- Application\
+- Product Reference\
+Values are taken from the actual dataset, ensuring consistency and
+preventing invalid selections.
 
-Scikit-learn
+------------------------------------------------------------------------
 
-Streamlit
+### **5️⃣ Selling Price Prediction**
 
-## Getting Started
+For price prediction: - Inputs undergo log transformation\
+- Features are combined with encoded variables\
+- Processed through a trained regression model (`model.pkl`)\
+- Output is returned as the exponential of the predicted log price\
+Produces accurate and realistic market-aligned price estimates.
 
-Clone the repository.
+------------------------------------------------------------------------
 
-Install the required libraries.
+### **6️⃣ Deal Status Prediction (Won/Lost)**
 
-Run the Streamlit app using the command: streamlit run app.py.
+For status prediction: - Uses a dedicated classification model
+(`cmodel.pkl`)\
+- Includes selling price, customer details, product info, and physical
+dimensions\
+- Output: - 🟢 **Won** - 🔴 **Lost**\
+Helps sales teams estimate the likelihood of securing deals.
 
-Enter the values for each column to get the Selling_Price predicted value or Status (Won/Lost).
+------------------------------------------------------------------------
+
+### **7️⃣ Pretrained Model Integration**
+
+The app loads multiple `.pkl` files for end-to-end preprocessing and
+prediction:\
+- `model.pkl`, `scaler.pkl`, `t.pkl`, `s.pkl` for price prediction\
+- `cmodel.pkl`, `cscaler.pkl`, `ct.pkl` for status prediction\
+This ensures predictions closely match the original modeling workflow.
+
+------------------------------------------------------------------------
+
+### **8️⃣ Professional UI Built With Streamlit**
+
+Features include: - Wide-page layout\
+- Custom-styled buttons\
+- Tab-based navigation\
+- Notes for minimum/maximum field ranges\
+- Clean column-based input layout\
+Creates a smooth and professional experience for end users.
+
+------------------------------------------------------------------------
+
+# 📁 Project Structure
+
+    📦 Industrial-Copper-Modeling/
+    ├── dsindustrialcopper.py
+    ├── model.pkl
+    ├── scaler.pkl
+    ├── t.pkl
+    ├── s.pkl
+    ├── cmodel.pkl
+    ├── cscaler.pkl
+    ├── ct.pkl
+    └── README.md
+
+------------------------------------------------------------------------
+
+# 🧠 Future Scope
+
+-   Add interactive EDA section\
+-   Deploy the application on Streamlit Cloud\
+-   Introduce advanced ML models\
+-   Add selling price & status visual analytics
